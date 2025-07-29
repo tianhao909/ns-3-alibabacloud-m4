@@ -1,7 +1,9 @@
+# 初始化变量
 set(mpi_sources)
 set(mpi_headers)
 set(mpi_libraries)
 
+# 如果启用了 MPI，则设置对应文件和库
 if(${ENABLE_MPI})
   set(mpi_sources
       # model/point-to-point-remote-channel.cc
@@ -15,6 +17,7 @@ if(${ENABLE_MPI})
   )
 endif()
 
+# 构建库目标
 build_lib(
   LIBNAME point-to-point
   SOURCE_FILES
@@ -38,6 +41,7 @@ build_lib(
     model/switch-mmu.cc
     model/nvswitch-node.cc
     model/point-to-point-remote-channel.cc
+    model/flow-routing.cc
   HEADER_FILES
     ${mpi_headers}
     helper/point-to-point-helper.h
@@ -61,6 +65,7 @@ build_lib(
     model/trace-format.h
     model/nvswitch-node.h
     model/point-to-point-remote-channel.h
+    model/flow-routing.h
   LIBRARIES_TO_LINK ${libnetwork}
                     ${mpi_libraries}
   TEST_SOURCES test/point-to-point-test.cc
